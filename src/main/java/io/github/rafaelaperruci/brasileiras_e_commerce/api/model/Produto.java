@@ -12,7 +12,7 @@ public class Produto {
     private String codigo;
     private String descricao;
 
-    @Column(name = "codigo_barras")
+    @Column(name = "codigo_barras", unique = true)
     private String codigoBarra;
 
     @Column(name = "valor_compra")

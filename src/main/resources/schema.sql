@@ -13,7 +13,7 @@ CREATE TABLE fornecedores (
                               cnpj VARCHAR(18) UNIQUE NOT NULL,
                               email VARCHAR(100),
                               telefone VARCHAR(20),
-                              endereco_entrega VARCHAR(300)
+                              endereco VARCHAR(300)
 );
 
 CREATE TABLE produtos (

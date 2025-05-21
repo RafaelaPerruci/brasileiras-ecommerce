@@ -16,6 +16,8 @@ public class Clientes {
     private String cpf;
     private String email;
     private String telefone;
+
+    @Column(name = "endereco_entrega")
     private String endereco;
 
     @OneToMany(mappedBy = "cliente")
