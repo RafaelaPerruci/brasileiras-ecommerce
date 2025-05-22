@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-public record FornecedoresRequestDTO(
+public record FornecedoresDTO(
 
         @NotBlank
         String razaoSocial,

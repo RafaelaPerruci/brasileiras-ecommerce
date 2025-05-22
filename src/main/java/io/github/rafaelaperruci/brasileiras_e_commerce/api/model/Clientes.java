@@ -1,5 +1,6 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ClientesDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ public class Clientes {
         this.email = email;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+
+    public Clientes(ClientesDTO clienteDTO) {
+        this.nome = clienteDTO.nome();
+        this.cpf = clienteDTO.cpf();
+        this.email = clienteDTO.email();
+        this.telefone = clienteDTO.telefone();
+        this.endereco = clienteDTO.endereco();
     }
 
     public String getNome() {

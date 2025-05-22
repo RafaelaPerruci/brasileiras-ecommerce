@@ -1,5 +1,7 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.FornecedoresDTO;
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ProdutosDTO;
 import jakarta.persistence.*;
 
 @Entity
@@ -36,6 +38,17 @@ public class Produto {
         this.valorVenda = valorVenda;
         this.estoque = estoque;
     }
+    public Produto(ProdutosDTO produtos) {
+        this.codigo = produtos.codigo();
+        this.descricao = produtos.descricao();
+        this.codigoBarra = produtos.codigoBarra();
+        this.valorCompra = produtos.valorCompra();
+        this.valorVenda = produtos.valorVenda();
+        this.estoque = produtos.estoque();
+        this.fornecedor = new Fornecedores();
+        this.fornecedor.setId(produtos.fornecedorId());
+    }
+
 
     public Long getId() {
         return id;

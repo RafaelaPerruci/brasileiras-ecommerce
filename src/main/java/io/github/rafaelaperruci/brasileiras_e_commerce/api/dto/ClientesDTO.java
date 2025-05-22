@@ -1,11 +1,12 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.dto;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.model.Clientes;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.br.CPF;
 
-public record ClientesRequestDTO(
+public record ClientesDTO(
 
         @NotBlank
         String nome,
@@ -23,4 +24,7 @@ public record ClientesRequestDTO(
         @NotBlank()
         String endereco
         ) {
+        public ClientesDTO(Clientes cliente) {
+                this(cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getTelefone(), cliente.getEndereco());
+        }
 }

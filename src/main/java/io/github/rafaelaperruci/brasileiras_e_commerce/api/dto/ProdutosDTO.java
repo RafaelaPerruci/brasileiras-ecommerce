@@ -1,9 +1,8 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
-public record ProdutosRequestDTO(
+public record ProdutosDTO(
 
         @NotBlank
         String codigo,

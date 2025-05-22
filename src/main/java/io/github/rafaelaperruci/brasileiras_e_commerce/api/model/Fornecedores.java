@@ -1,5 +1,7 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ClientesDTO;
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.FornecedoresDTO;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Fornecedores {
     private String telefone;
     private String endereco;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Produto> produtos = new ArrayList<>();
 
     public Fornecedores() {}
@@ -30,6 +32,13 @@ public class Fornecedores {
         this.email = email;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+    public Fornecedores(FornecedoresDTO fornecedoresDTO) {
+        this.razaoSocial = fornecedoresDTO.razaoSocial();
+        this.cnpj = fornecedoresDTO.cnpj();
+        this.email = fornecedoresDTO.email();
+        this.telefone = fornecedoresDTO.telefone();
+        this.endereco = fornecedoresDTO.endereco();
     }
 
     public Long getId() {
