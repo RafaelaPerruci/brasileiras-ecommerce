@@ -65,6 +65,6 @@ public class VendaController {
         if (dto.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Venda não encontrada."));
         }
-        return ResponseEntity.ok(Map.of("message", "Venda deletado com sucesso."));
+        return ResponseEntity.ok(Map.of("message", "Venda deletada com sucesso."));
     }
 }
