@@ -2,6 +2,7 @@ package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ClientesDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class Clientes {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(@NotBlank(message = "O ID do cliente é obrigatório") Long aLong) {
         this.id = id;
     }
 

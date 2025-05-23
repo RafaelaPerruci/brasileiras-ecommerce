@@ -35,6 +35,7 @@ CREATE TABLE vendas (
                         valor_total DECIMAL(10, 2) NOT NULL,
                         cliente_id BIGINT NOT NULL,
                         endereco_entrega VARCHAR(300),
+                        metodo_pagamento VARCHAR(20),
                         FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 

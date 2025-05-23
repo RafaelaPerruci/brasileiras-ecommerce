@@ -1,14 +1,14 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.dto;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.model.ItemVenda;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record ItemVendaDTO(
+import java.util.List;
 
-        @NotBlank(message = "O id da venda é obrigatório")
-        Long vendaId,
+public record ItemVendaDTO(
 
         @NotBlank(message = "O id do produto é obrigatório")
         Long produtoId,
@@ -21,4 +21,8 @@ public record ItemVendaDTO(
         @DecimalMin(value = "0.0", inclusive = false, message = "O valor unitário deve ser maior que zero")
         Double valorUnitario
 ) {
+
+        public ItemVendaDTO(ItemVenda itemVenda) {
+                this(itemVenda.getProduto().getId(), itemVenda.getQuantidade(), itemVenda.getValorUnitario());
+        }
 }

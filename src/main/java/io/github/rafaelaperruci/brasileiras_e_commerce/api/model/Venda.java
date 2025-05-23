@@ -1,8 +1,11 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.VendaRequestDTO;
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.enums.MetodoPagamento;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,16 +32,33 @@ public class Venda {
     @JoinColumn(name = "cliente_id")
     private Clientes cliente;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "metodo_pagamento")
+    private MetodoPagamento pagamento;
+
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-    private List<ItemVenda> itens;
+    private List<ItemVenda> itens = new ArrayList<>();
 
     public Venda() {}
 
-    public Venda(String numeroVenda, LocalDate data, Double valorTotal, String enderecoEntrega) {
+    public Venda(String numeroVenda, LocalDate data, Double valorTotal, String enderecoEntrega, MetodoPagamento metodoPagamento) {
         this.numeroVenda = numeroVenda;
         this.data = data;
         this.valorTotal = valorTotal;
         this.enderecoEntrega = enderecoEntrega;
+        this.pagamento = metodoPagamento;
+
+    }
+
+    public Venda(VendaRequestDTO dto, Clientes cliente) {
+        this.numeroVenda = dto.numeroVenda();
+        this.data = dto.data();
+        this.valorTotal = dto.itens().stream().mapToDouble(item -> item.quantidade() * item.valorUnitario())
+                .sum();
+        this.pagamento = dto.metodoPagamento();
+        this.enderecoEntrega = dto.enderecoEntrega();
+        this.cliente = cliente;
+
     }
 
     public Long getId() {
@@ -87,6 +107,18 @@ public class Venda {
 
     public void setCliente(Clientes cliente) {
         this.cliente = cliente;
+    }
+
+    public MetodoPagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(MetodoPagamento pagamento) {
+        this.pagamento = pagamento;
+    }
+
+    public void setItens(List<ItemVenda> itens) {
+        this.itens = itens;
     }
 
     public List<ItemVenda> getItens() {

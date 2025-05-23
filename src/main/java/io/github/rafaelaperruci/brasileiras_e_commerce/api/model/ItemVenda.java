@@ -1,9 +1,12 @@
 package io.github.rafaelaperruci.brasileiras_e_commerce.api.model;
 
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ItemVendaDTO;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "item_venda")
+@Table(name = "itens_venda")
 public class ItemVenda {
 
     @Id
@@ -34,6 +37,15 @@ public class ItemVenda {
         this.valorUnitario = valorUnitario;
         this.subtotal = quantidade * valorUnitario;
     }
+
+    public ItemVenda(ItemVendaDTO itemVendaDTO) {
+        this.produto = new Produto();
+        this.produto.setId(itemVendaDTO.produtoId());
+        this.quantidade = itemVendaDTO.quantidade();
+        this.valorUnitario = itemVendaDTO.valorUnitario();
+        this.subtotal = itemVendaDTO.quantidade() * itemVendaDTO.valorUnitario();
+    }
+
 
     public Long getId() {
         return id;

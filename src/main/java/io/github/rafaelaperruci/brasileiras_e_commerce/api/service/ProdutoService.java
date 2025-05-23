@@ -4,12 +4,14 @@ import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.FornecedoresRespo
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ProdutoResponseDTO;
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.dto.ProdutosDTO;
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.model.Fornecedores;
+import io.github.rafaelaperruci.brasileiras_e_commerce.api.model.ItemVenda;
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.model.Produto;
 import io.github.rafaelaperruci.brasileiras_e_commerce.api.repository.ProdutoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,5 +49,24 @@ public class ProdutoService {
         }
         produtoRepository.deleteById(id);
         return produto.map(ProdutoResponseDTO::new);
+    }
+
+    public boolean verificarEstoque(List<ItemVenda> itens) {
+
+        boolean checkEstoque = false;
+        for (ItemVenda item : itens){
+            Produto produto = produtoRepository.findById(item.getProduto().getId()).orElse(null);
+            if (produto != null){
+                if(produto.getEstoque() > item.getQuantidade()){
+                    produto.setEstoque(produto.getEstoque() - item.getQuantidade());
+                    produtoRepository.save(produto);
+                    checkEstoque = true;
+                }else{
+                    checkEstoque = false;
+                    break;
+                }
+            }
+        }
+        return checkEstoque;
     }
 }
